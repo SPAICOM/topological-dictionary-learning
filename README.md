@@ -6,7 +6,7 @@ This is the official repository containing all the code to run the simulations a
 
 - [Abstract](#abstract)
 - [Project Structure](#project-structure)
-- [Installation](#installation)
+- [Usage](#usage)
   - [Clone the Repository](#clone-the-repository)
   - [Setup Environment](#setup-environment)
 
@@ -75,15 +75,19 @@ The core class of the project is `TopoSolver`, located in the topolearn module. 
   └── pyproject.toml       # Dependencies and environment management
   ```
 
-## Installation
+## Usage
 
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/...
+git clone https://github.com/SPAICOM/topological-dictionary-learning
 cd topological-dictionary-learning
 ```
 
 ### Setup Environment
 
-## Used technologies
+We suggest to use [uv](https://docs.astral.sh/uv/) as package and environment manager to quickly solve any dependency issues. For instance, if you want to run any general script `script.py` contained in the `scripts` directory, simply run:
+
+```bash
+uv run scripts\script.py
+```
