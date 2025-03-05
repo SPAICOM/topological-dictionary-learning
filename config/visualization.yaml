@@ -1,0 +1,20 @@
+p_triangles_list: [0.5, 0.6, 0.7, 0.8, 0.9]
+sparsity_mode_list: ["random"] # ["max", "random"]
+max_sparsity_list: [25] # [20, 25]
+P: 3
+J: 2
+sub_size: 100
+n: 40
+nu: 62
+n_sim: 10
+p_edges: 0.162
+seed: 0
+max_sparsity: 26
+min_sparsity: 5
+sparsity_freq: 4
+lambda_: 1e-7
+tol: 1e-7
+max_iter: 100
+patience: 5
+topo_learning_mode: "optimistic"
+res_type: "topology" # can take values "analytic", "parametric", "topology", "real"

@@ -1,0 +1,14 @@
+dictionary_type: "separated"
+m_train: 150
+m_test: 80
+P: 3
+J: 2
+sparsity_mode: "max"
+sparsity: 25
+n_search: 3000
+n_sim: 10
+sub_size: 100
+n: 40
+p_edges: 0.162
+p_triangles: 0.7
+seed: 0
