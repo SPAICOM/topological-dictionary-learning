@@ -1,0 +1,6 @@
+n: 40
+seed: 0
+sub_size: 100
+p_edges: 0.162
+data_sparsity: [5, 15]
+sparsity_mode: "max"

@@ -1,0 +1,36 @@
+data:
+  dictionary_type: "separated"
+  P: 3
+  J: 2
+  sparsity_mode: "max"
+  sparsity: 25
+  seed: 0
+
+algorithm:
+  max_sparsity: 26
+  min_sparsity: 25
+  sparsity_freq: 4
+  lambda_: 1e-2
+  lambda2: 0.3
+  mu: 5
+  max_iter: 800
+  max_iter_out: 100
+  max_iter_tot: 150
+  decouple_learning: False
+  topo_learning_mode: optimistic
+  tol: 1e-7
+  tol_out: 1e-3
+  patience: 10
+  verbose: True
+  QP: True
+  warmup: 0
+  on_test: False
+  complete: True
+  both: False
+  dictionary_types:
+    - "classic_fourier"
+    - "fourier"
+    - "slepians"
+    - "wavelet"
+    - "complete_greedy"
+    - "complete_soft"

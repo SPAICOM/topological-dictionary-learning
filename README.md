@@ -49,8 +49,6 @@ The core class of the project is `TopoSolver`, located in the topolearn module. 
   |   ├── dict_topo_learn.py   # Joint topology and dictionary learning
   |   ├── utils.py
   |
-  ├── logs/                    # Directory for the logging files coming from the experiments
-  |
   ├── plots/                   # Folder for the automatic save of plots in .png format
   |
   ├── synthetic_data/          # Synthetic dataset for several generating setups

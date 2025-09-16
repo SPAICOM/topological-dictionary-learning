@@ -159,11 +159,14 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-# Ignore the junk directory
+# Ignore the some trash directory
 junk/
+tmp/
 
-# Ignore the outputs directory
+# Ignore loggings and hydra outputs
 outputs/
+logs/
+multirun/
 
 # Ignore the results directory
 results/

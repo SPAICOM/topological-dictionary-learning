@@ -1,0 +1,50 @@
+data:
+  dictionary_type: "separated"
+  m_train: 150
+  m_test: 80
+  P: 3
+  J: 2
+  sparsity_mode: "max"
+  sparsity: 25
+  n_search: 3000
+  n_sim: 10
+  sub_size: 100
+  n: 40
+  p_edges: 0.162
+  p_triangles: 0.7
+  seed: 0
+
+algorithm:
+  max_sparsity: 16 # 26
+  min_sparsity: 5
+  sparsity_freq: 10 # 4
+  lambda_: 1e-1
+  lambda2: 0.3
+  mu: 5
+  max_iter: 800
+  max_iter_out: 100
+  max_iter_tot: 150
+  decouple_learning: False
+  topo_learning_mode: optimistic
+  tol: 1e-7
+  tol_out: 1e-3
+  patience: 10
+  verbose: False
+  QP: True
+  warmup: 0
+  on_test: False
+  complete: True
+  both: False
+  algo_sparsity: ${data.sparsity}
+  tr_list: [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+  mu_schedule: [2, 2, 5, 5, 5, 5, 5, 5, 5]
+  lambda_schedule: [1e-1, 1e-1, 1e-2, 1e-2, 1e-2, 1e-2, 1e-2, 1e-2, 1e-2]
+  mi_schedule: [1300, 1200, 1000, 900, 800, 700, 600, 500, 500]
+  algo: soft
+
+hydra:
+  mode: MULTIRUN
+  sweeper:
+    params:
+      algorithm.algo: greedy, soft
+      data.sparsity: 5, 15
