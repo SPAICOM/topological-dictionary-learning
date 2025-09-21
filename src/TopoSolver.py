@@ -6,6 +6,7 @@ import psutil
 import numpy as np
 import cvxpy as cp
 import pandas as pd
+import networkx as nx
 import numpy.linalg as la
 import scipy.linalg as sla
 from functools import wraps
@@ -93,7 +94,7 @@ class TopoSolver:
         self.m_test: int = Y_test.shape[1]
 
         # Topology and geometry behind data (by default we consider a topology with full upper laplacian)
-        if params["G_true"] == None:
+        if params["G_true"] is None:
             self.G = EnhancedGraph(
                 n=params["n"],
                 p_edges=params["p_edges"],
@@ -1674,17 +1675,17 @@ class TopoSolver:
 
     def get_topology_approx_error(self, Lu_true, round_res=None):
         res = la.norm(Lu_true - self.Lu, ord="fro") / la.norm(self.Lu, ord="fro")
-        if round_res == None:
+        if round_res is None:
             return res
         return np.round(res, round_res)
 
     def get_test_error(self, round_res):
-        if round_res == None:
+        if round_res is None:
             return self.min_error_test
         return np.round(self.min_error_test, round_res)
 
     def get_train_error(self, round_res=None):
-        if round_res == None:
+        if round_res is None:
             return self.min_error_train
         return np.round(self.min_error_test, round_res)
 
@@ -1803,3 +1804,57 @@ class TopoSolver:
         if verbose:
             print(f"Best c {self.c}")
             print(f"Best eps {self.epsilon}")
+
+
+def fit_gt_model(
+    k: int,
+    p: float,
+    G: nx.Graph,
+    Lu: np.ndarray,
+    data_path,
+    s: int = 7,
+) -> TopoSolver:
+    with open(data_path, "rb") as f:
+        data = pickle.load(f)
+
+    init_params = {
+        "J": 2,
+        "P": 3,
+        "c": data["c_true"][s],
+        "epsilon": data["epsilon_true"][s],
+        "true_prob_T": p,
+        "sub_size": 100,
+        "seed": 0,
+        "n": 40,
+        "K0": k,
+        "p_edges": 0.162,
+        "dictionary_type": "separated",
+        "G_true": G,
+    }
+
+    algo_params = {
+        "lambda_": 1e-2,
+        "tol": 1e-7,
+        "patience": 10,
+        "max_iter": 100,
+        "QP": True,
+        "mode": "optimistic",
+        "verbose": False,
+    }
+
+    gt_model = TopoSolver(
+        X_train=data["X_train"][:, :, s],
+        X_test=data["X_test"][:, :, s],
+        Y_train=data["Y_train"][:, :, s],
+        Y_test=data["Y_test"][:, :, s],
+        **init_params,
+    )
+
+    gt_model.fit(
+        Lu_true=Lu,
+        init_mode="only_X",
+        learn_topology=False,
+        **algo_params,
+    )
+
+    return gt_model

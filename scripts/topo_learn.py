@@ -13,6 +13,7 @@ sys.path.append(str(Path(sys.path[0]).parent))
 
 from src import generate_data
 from scripts.utils import load_topology, dict_and_topology_learning
+from scripts.visualize import nmse_curves
 
 
 def setup_logger() -> None:
@@ -152,7 +153,7 @@ def main(cfg: DictConfig):
     dict_types = OmegaConf.to_container(cfg.algorithm.dictionary_types, resolve=True)
     print("Starting the learning algorithm...")
 
-    _, _, results_path = dict_and_topology_learning(
+    dict_errors, models, _, results_path = dict_and_topology_learning(
         dict_list=dict_types,
         n_sim=n_sim,
         X_train=X_train,
@@ -171,6 +172,9 @@ def main(cfg: DictConfig):
     print("Learning process complete!")
 
     logging.info(f"Results saved in: {results_path}")
+
+    print("Plotting time...")
+    nmse_curves(dict_errors, K0_coll)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,7 @@
+xtick.labelsize = 16
+ytick.labelsize = 16
+font.size = 18
+axes.titlesize = 18
+font.family = serif
+font.serif = Times New Roman, Times
+mathtext.fontset = stix

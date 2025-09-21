@@ -19,7 +19,7 @@ from pathlib import Path
 sys.path.append(str(Path(sys.path[0]).parent))
 
 from scripts.utils import find_common_arrays, dict_and_topology_learning
-from scripts.visualizations import plot_learnt_topology_real, nmse_curves_real
+from scripts.visualize import plot_learnt_topology_real, nmse_curves
 
 warnings.filterwarnings("ignore")
 
@@ -206,15 +206,10 @@ def main(cfg: DictConfig):
             A[nodes[0], nodes[1]] = 1
 
         G = nx.from_numpy_array(A)
-
-        num_polygons = 0
         B2 = model.B2
-
-        pos = nx.kamada_kawai_layout(G)
 
         for polygon_index in range(B2.shape[1]):
             np.random.seed(polygon_index)
-            color = np.random.rand(3)
             polygon_edges = []
             edges = np.where(B2[:, polygon_index] != 0)[0]
 
@@ -299,7 +294,7 @@ def main(cfg: DictConfig):
             K0_coll[coll2],
             common,
         )
-        nmse_curves_real(dict_err, K0_coll)
+        nmse_curves(dict_err, K0_coll, real=True)
 
 
 if __name__ == "__main__":
